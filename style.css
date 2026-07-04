@@ -140,7 +140,7 @@ body { font-family: 'Inter', sans-serif; color: var(--text-main); background-col
 
 .app-page { display: none; min-height: 100vh; }
 .app-page.active { display: flex; flex-direction: column; }
-.cta-button { background-color: var(--primary); color: #ffffff; padding: 9px 27px; border-radius: 30px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.25s ease; }
+.cta-button { background-color: var(--primary); color: #ffffff; padding: 8px 26px; border-radius: 30px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.25s ease; }
 .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--shadow-color); opacity: 0.95; }
 .cta-button.secondary-btn { background-color: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
 .cta-button.secondary-btn:hover { background-color: var(--primary-light); color: var(--primary); border-color: var(--primary); }
