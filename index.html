@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Cece</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-light" onclick="closeAllActionMenus(event)">
+
+<nav id="globalNav" class="global-nav hidden">
+    <button class="menu-trigger" onclick="toggleDrawer(); event.stopPropagation();" aria-label="Toggle Menu">
+        <span class="menu-icon"></span>
+        <span>Menu</span>
+    </button>
+</nav>
+
+<div id="auth-page" class="secure-lockscreen hidden">
+    <div id="auth-stage-login" class="auth-stage">
+        <div class="lockscreen-header">
+            <div class="lockscreen-avatar">✦</div>
+            <h2>Project Cece</h2>
+            <p id="login-status-text">Account Authentication</p>
+        </div>
+        
+        <div class="login-form-group">
+            <input type="text" id="loginUsername" class="auth-input" placeholder="Email" autocomplete="off">
+            <input type="password" id="loginPassword" class="auth-input" placeholder="Password">
+            <button class="cta-button auth-btn-full" onclick="handleAccountLogin()">Authenticate</button>
+        </div>
+    </div>
+
+    <div id="auth-stage-pin" class="auth-stage hidden">
+        <div class="lockscreen-header">
+            <div class="lockscreen-avatar">✦</div>
+            <h2>Project Cece</h2>
+            <p id="lockscreen-status">Enter Master Key</p>
+        </div>
+
+        <div class="pin-dots-container">
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+        </div>
+
+        <input type="hidden" id="masterPasscode" value="">
+
+        <div class="custom-keypad">
+            <button class="key-btn" onclick="pressPinKey('1')">1</button>
+            <button class="key-btn" onclick="pressPinKey('2')">2</button>
+            <button class="key-btn" onclick="pressPinKey('3')">3</button>
+            
+            <button class="key-btn" onclick="pressPinKey('4')">4</button>
+            <button class="key-btn" onclick="pressPinKey('5')">5</button>
+            <button class="key-btn" onclick="pressPinKey('6')">6</button>
+            
+            <button class="key-btn" onclick="pressPinKey('7')">7</button>
+            <button class="key-btn" onclick="pressPinKey('8')">8</button>
+            <button class="key-btn" onclick="pressPinKey('9')">9</button>
+            
+            <button class="key-btn special-btn" onclick="clearPin()">Clear</button>
+            <button class="key-btn" onclick="pressPinKey('0')">0</button>
+            <button class="key-btn special-btn" onclick="backspacePin()">⌫</button>
+        </div>
+    </div>
+</div>
+
+<section id="logs-page" class="app-page hidden">
+    <div class="container animate-fade-in">
+        
+        <div class="page-header-sticky">
+            <h2 class="section-heading">Diary Logs</h2>
+        </div>
+
+        <div class="dashboard-dashboard-bar ghost-space-preserver"></div>
+
+        <div class="logs-top-controls">
+            <div class="logs-management-bar">
+                <div class="filter-wrapper">
+                    <label for="monthFilter" class="filter-label">Filter Month:</label>
+                    <select id="monthFilter" class="filter-select" onchange="filterTimelineByMonth()">
+                        <option value="all">All Logs</option>
+                        <option value="june">June</option>
+                        <option value="july">July</option>
+                    </select>
+                </div>
+                <button class="cta-button logs-write-btn" onclick="prepareCreateForm()">+ Write Entry</button>
+            </div>
+        </div>
+
+        <div id="timelineContainer" class="timeline"></div>
+    </div>
+    
+    <button class="flashback-fab" onclick="launchRandomMemoryCapsule()" title="Memory Capsule">
+        ✦
+    </button>
+</section>
+
+<div id="sideDrawer" class="side-drawer">
+    <div class="drawer-glow-orb"></div>
+    <div class="drawer-header">
+        <div class="drawer-logo-group">
+            <div class="drawer-logo">Project Cece</div>
+            <div class="drawer-sub">Secure Workspace</div>
+        </div>
+        <button class="drawer-close" onclick="toggleDrawer(false)" aria-label="Close Navigation Drawer">&times;</button>
+    </div>
+    <ul class="drawer-links">
+        <li onclick="navigateFromMenu('logs')">
+            <span class="nav-icon">▤</span> Logs
+        </li>
+        <li onclick="navigateFromMenu('personalization')">
+            <span class="nav-icon">✦</span> Personalization
+        </li>
+        <li onclick="navigateFromMenu('settings')">
+            <span class="nav-icon">⚙</span> Settings
+        </li>
+        <li onclick="navigateFromMenu('about')">
+            <span class="nav-icon">ⓘ</span> About
+        </li>
+    </ul>
+    <div class="drawer-footer">
+        <div id="drawer-role-text" class="drawer-role-status">
+            <span class="status-dot-active"></span>
+            Logged in as Master
+        </div>
+        <div class="footer-build">Build v1.149.315.125 Stable</div>
+        <div class="footer-status">System Connected</div>
+    </div>
+</div>
+
+<section id="landing-page" class="app-page hidden">
+    <h1>Project Cece</h1>
+    <p class="landing-description">
+        A premium, secure workspace environment engineered to document everyday thoughts, track personal configurations, and preserve memories.
+    </p>
+    <button type="button" class="launch-btn" onclick="openSecureWorkspace()" title="Open Application">
+        ✦ Launch
+    </button>
+</section>
+
+<section id="create-log-page" class="app-page hidden">
+    <div class="container animate-fade-in">
+        
+        <div class="page-header-sticky">
+            <h2 id="formPageTitle" class="section-heading">Add New Entry</h2>
+        </div>
+        
+        <div class="settings-card mt-15">
+            <h3>Master PIN Protection</h3>
+            <p>Secures this specific entry behind an authentication gate. The title and narrative content will be completely blurred on your public timeline logs.</p>
+            <div class="setting-toggle">
+                <span>Protect with Master PIN</span>
+                <input type="checkbox" id="eventPrivacy" class="form-checkbox-ui">
+            </div>
+        </div>
+
+        <div class="status-card mb-30">
+            <div class="form-group">
+                <label for="eventTitle">Title</label>
+                <input type="text" id="eventTitle" class="form-control" placeholder="Title of this entry...">
+            </div>
+            
+            <div class="form-group">
+                <label for="eventDate">Date</label>
+                <input type="date" id="eventDate" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="eventContent">Content</label>
+                <textarea id="eventContent" class="form-control workspace-textarea" rows="8" placeholder="Write your thoughts here..."></textarea>
+            </div>
+
+            <div class="form-actions-wrapper">
+                <button class="cta-button" onclick="publishNewEvent()">Save Entry</button>
+                <button class="cta-button secondary-btn" onclick="improveWithAI()">Improve with AI</button>
+                <button class="cta-button secondary-btn btn-align-right" onclick="switchPage('logs-page')">Cancel</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="personalization-page" class="app-page hidden">
+    <div class="container animate-fade-in">
+        
+        <div class="page-header-sticky">
+            <h2 class="section-heading">Personalization</h2>
+        </div>
+
+        <div class="theme-selection-container"> 
+            <div class="status-card mb-40">
+                <div class="status-title">
+                    <span class="pulse-dot"></span>
+                    <span>Active Theme: <span id="activeThemeLabel" class="text-primary-accent">Light Minimalist</span></span>
+                </div>
+                <p class="status-text">Select your favorite aesthetic. The look will instantly transform without refreshing or affecting your logged information.</p>
+            </div>
+
+            <div class="premium-personalization-card">
+                <h2>Interface Preferences</h2>
+                <p class="section-subtitle">Tailor your workspace environment to match your focus state.</p>
+                
+                <div class="control-container mb-30">
+                    <label class="control-label">Workspace Theme Selection</label>
+                    
+                    <button type="button" class="theme-dropdown-trigger" id="themeDropdownGridBtn" onclick="toggleThemeGridDropdown(event)">
+                        <span id="currentDropdownThemeText">Light Minimalist</span>
+                        <span class="dropdown-chevron">▼</span>
+                    </button>
+
+                    <div id="themeGridDropdownContainer" class="theme-grid-dropdown-content">
+                        <div class="theme-grid-selection">
+                            <div class="theme-grid-card" onclick="applyThemeMutation('light')">
+                                <div class="theme-preview-box preview-light"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                                <div class="theme-card-body-meta">
+                                    <div class="theme-meta-header">
+                                        <strong class="theme-card-title">Light Minimalist</strong>
+                                        <div id="indicator-light" class="card-radio-indicator active-indicator"></div>
+                                    </div>
+                                    <p class="theme-card-desc">Clean, stark layout tailored for high-contrast crisp daytime readability.</p>
+                                </div>
+                            </div>
+
+                            <div class="theme-grid-card" onclick="applyThemeMutation('dark')">
+                                <div class="theme-preview-box preview-dark"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                                <div class="theme-card-body-meta">
+                                    <div class="theme-meta-header">
+                                        <strong class="theme-card-title">Dark Midnight</strong>
+                                        <div id="indicator-dark" class="card-radio-indicator"></div>
+                                    </div>
+                                    <p class="theme-card-desc">Low-luminance slate palettes engineered to eliminate screen glare.</p>
+                                </div>
+                            </div>
+
+                            <div class="theme-grid-card" onclick="applyThemeMutation('sunset')">
+                                <div class="theme-preview-box preview-sunset"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                                <div class="theme-card-body-meta">
+                                    <div class="theme-meta-header">
+                                        <strong class="theme-card-title">Sunset Warmth</strong>
+                                        <div id="indicator-sunset" class="card-radio-indicator"></div>
+                                    </div>
+                                    <p class="theme-card-desc">Comfortable amber glows and pastel rose highlights for cozy spaces.</p>
+                                </div>
+                            </div>
+
+                            <div class="theme-grid-card" onclick="applyThemeMutation('crimson')">
+                                <div class="theme-preview-box preview-crimson"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                                <div class="theme-card-body-meta">
+                                    <div class="theme-meta-header">
+                                        <strong class="theme-card-title">Crimson Richness</strong>
+                                        <div id="indicator-crimson" class="card-radio-indicator"></div>
+                                    </div>
+                                    <p class="theme-card-desc">Dignified deep burgundy color schemas paired with light accents.</p>
+                                </div>
+                            </div>
+
+                            <div class="theme-grid-card" onclick="applyThemeMutation('sepia')">
+                                <div class="theme-preview-box preview-brown"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                                <div class="theme-card-body-meta">
+                                    <div class="theme-meta-header">
+                                        <strong class="theme-card-title">Earthy Sepia</strong>
+                                        <div id="indicator-sepia" class="card-radio-indicator"></div>
+                                    </div>
+                                    <p class="theme-card-desc">Organic coffee-toned background properties optimized for classic reading.</p>
+                                </div>
+                            </div>
+
+                            <div class="theme-grid-card" onclick="applyThemeMutation('army')">
+                                <div class="theme-preview-box preview-army"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                                <div class="theme-card-body-meta">
+                                    <div class="theme-meta-header">
+                                        <strong class="theme-card-title">Army Olive Drab</strong>
+                                        <div id="indicator-army" class="card-radio-indicator"></div>
+                                    </div>
+                                    <p class="theme-card-desc">Understated olive drab military tones providing a smooth aesthetic.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                 
+
+                <div class="personalization-audio-settings">
+                    <h4>Sound Design</h4>
+                    <div class="audio-control-row" style="margin-bottom: 12px;">
+                        <label for="sfxToggle" class="cursor-pointer">Enable Sound Effects</label>
+                        <input type="checkbox" id="sfxToggle" checked class="form-checkbox-ui" onchange="handleSfxToggle(this)">
+                    </div>
+                    <div class="audio-control-row" style="display: flex; align-items: center; justify-content: space-between; gap: 15px;">
+                        <label for="sfx-volume">System FX Volume</label>
+                        <input type="range" id="sfx-volume" min="0" max="100" value="40" class="premium-slider" style="flex: 1; margin: 0 10px;">
+                        <span class="badge" id="sfx-vol-indicator" style="min-width: 45px; text-align: center;">40%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="settings-page" class="app-page hidden">
+    <div class="container animate-fade-in">
+        <div class="page-header-sticky">
+            <h2 class="section-heading">Settings</h2>
+        </div>
+        <div class="settings-grid">
+            <div class="settings-card">
+                <h3>App Protection</h3>
+                <p>Require your 4-digit PIN every single time you open the app to keep your entries secure from prying eyes.</p>
+                <div class="setting-toggle">
+                    <span>Always Require PIN</span>
+                    <input type="checkbox" checked class="form-checkbox-ui">
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <h3>Local Storage Cache</h3>
+                <p>Saves drafts and entries directly into your browser's local cache so you never accidentally lose what you wrote.</p>
+                <div class="setting-toggle">
+                    <span>Auto-Save and Persist Data</span>
+                    <input type="checkbox" checked disabled class="form-checkbox-ui">
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <h3>GitHub Cloud Sync</h3>
+                <p>Paste your Personal Access Token to link your workspace to your private GitHub Gist cloud vault securely.</p>
+                <div class="setting-toggle flex-dir-col">
+                    <input type="password" id="githubTokenInput" class="sync-vault-input" placeholder="Paste ghp_... token here" oninput="saveTokenWithFeedback(this.value)">
+                    <span id="tokenStatusText" class="vault-sync-badge">✦ Saved securely to cache</span>
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <h3>Profile Clearance</h3>
+                <p>Your current access authorization state for this workspace runtime session.</p>
+                <div class="setting-toggle mt-14">
+                    <span class="settings-meta-label">Access Level</span>
+                    <span id="settings-role-badge" class="clearance-badge-master">
+                        Logged in as Master
+                    </span>
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <h3>Privacy Concealment Layer</h3>
+                <p>Blurs or hides sensitive dashboard metrics, logs, and text elements automatically to protect your screen from shoulder-surfing.</p>
+                <div class="setting-toggle">
+                    <span>Mask Sensitive Data and Conceal from View</span>
+                    <input type="checkbox" id="privacyConcealToggle" class="privacy-conceal-checkbox form-checkbox-ui" onchange="togglePrivacyConcealment()">
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <h3>Session Management</h3>
+                <p>Log out of your active profile session. This safely flushes the diary's immediate runtime memory and locks the interface gateway.</p>
+                <div class="setting-toggle mt-14">
+                    <span class="settings-meta-label">Current Active Session</span>
+                    <button class="logout-trigger-btn" onclick="showLogoutModal()">
+                        ✕ Log Out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about-page" class="app-page hidden">
+    <div class="container animate-fade-in">
+        <div class="page-header-sticky">
+            <h2 class="section-heading">About</h2>
+        </div>
+        <div class="about-signature-absolute-bottom">
+            <div class="telemetry-signature" title="System Token Hash">
+                -. .. -.-. --- .-.. . &nbsp;&nbsp; / &nbsp;&nbsp; ...- .. -.-. - --- .-. .. ---
+            </div>
+        </div>
+        
+        <div class="about-grid-layout">
+            <div class="about-main-card">
+                <h3>Hi, I'm Lance!</h3>
+                <p class="aboutHi">I'm originally from Pasig, but I currently live in Magallanes, Cavite, and study at De Guia Academy. Right now, I have a crush on someone who is both Mestiza and Chinita. Let's call her 'Cece'—mostly because when she laughs, her eyes literally turn into two little inverted C's. Looking forward to where this journey leads!</p>
+                <div class="about-divider"></div>
+                <h3>Project Information</h3>
+                <p class="aboutInfo"><strong>Project Cece</strong> is my personal, lightweight diary companion. I built it to have a clean, distraction-free space to structure my everyday thoughts, clear my mind, and log moments that matter before they fade. Because some memories need to stay entirely private, I engineered a secure PIN gate wrapper to keep my vault safe from prying eyes. Plus, to keep the workspace inspiring, the interface is completely fluid—allowing me to swap styling and colorways layout by layout to perfectly match whatever vibe or mood I’m writing in.</p>
+                <p class="about-publish-stamp"><i>Officially published and deployed in July 2026.</i></p>
+            </div>
+
+            <div class="about-sidebar-card">
+                <span class="meta-label">Storage Status</span>
+                <span class="meta-value text-success-active">LocalStorage Active</span>
+
+                <span class="meta-label">Built By</span>
+                <span class="meta-value">Lance Gabriel Crisostomo</span>
+                <span class="meta-label">Built For</span>
+                <span class="meta-value">Chin (Chinchin)</span>
+                <span class="meta-label">Published</span>
+                <span class="meta-value">July 4, 2026</span>
+
+                <span class="meta-label">Build Frame</span>
+                <span class="meta-value">v1.149.315.125 Stable</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+   GLOBAL BACKDROP OVERLAY OVERRIDES (SYSTEM PORTAL DECK)
+   ========================================================================== */ -->
+<div id="flashbackModal" class="modal-overlay hidden" onclick="closeFlashbackModal()">
+    <div class="modal-card animate-scale-up" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-tag">✦ RANDOM MEMORY FLASHBACK</div>
+            <button class="modal-close-generic" onclick="closeFlashbackModal()">&times;</button>
+        </div>
+        <h3 id="flashbackTitle" class="modal-title">Title Here</h3>
+        <div id="flashbackDate" class="modal-date">Date Here</div>
+        <div class="modal-body-scroll">
+            <p id="flashbackContent">Content Here</p>
+        </div>
+    </div>
+</div>
+
+<div id="logout-modal-overlay" class="dialog-overlay-wrapper modal-blur-backdrop" style="display: none;">
+    <div class="dialog-card-surface">
+        <h3 class="dialog-title">Log Out?</h3>
+        <p class="dialog-description">Are you sure you want to leave? This will lock your active workspace and clear temporary session memory.</p>
+        <div class="dialog-action-row">
+            <button class="btn-capsule btn-capsule-outline" onclick="closeLogoutModal()">Cancel</button>
+            <button class="btn-capsule btn-capsule-danger" onclick="executeLogout()">Yes, Log Out</button>
+        </div>
+    </div>
+</div>
+
+<div id="access-denied-modal-overlay" class="dialog-overlay-wrapper modal-blur-backdrop" style="display: none;">
+    <div class="dialog-card-surface dialog-card-centered">
+        <h3 class="dialog-title text-xl">Access Restricted</h3>
+        <p class="dialog-description">
+            You are currently browsing under a Visitor Profile. Creating, editing, or deleting journal logs requires Master clearance.
+        </p>
+        <div class="dialog-action-centered">
+            <button class="btn-capsule btn-capsule-danger pulse-action-btn" onclick="closeAccessDeniedModal()">Got it</button>
+        </div>
+    </div>
+</div>
+
+<!-- PATCHED: Completely cleaned up to remove raw text copy element boxes -->
+<div id="github-error-modal-overlay" class="dialog-overlay-wrapper modal-blur-backdrop" style="display: none;">
+    <div class="dialog-card-surface dialog-card-centered animate-scale-up" style="border: 2px solid #ef4444;">
+        <h3 class="dialog-title text-xl" style="color: #ef4444; font-size: 20px; margin-bottom: 15px; white-space: nowrap; text-align: center;">Cloud Synchronization Halted</h3>
+        
+        <div class="dialog-description" style="text-align: left; font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px;">
+            <p style="margin-bottom: 8px; font-weight: 600; color: var(--text-main);">To enable workspace saving, please follow these steps:</p>
+            <ol style="margin-left: 18px; padding-left: 0; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px;">
+                <li>Generate or locate your Personal Access Token directly inside your GitHub Settings workspace profile.</li>
+                <li>Navigate into the <strong>⚙ Settings</strong> panel of this app.</li>
+                <li>Paste the key into the GitHub Cloud Sync vault field.</li>
+            </ol>
+        </div>
+        
+        <div class="dialog-action-centered" style="width: 100%; display: flex; justify-content: center;">
+            <button class="btn-capsule btn-capsule-danger" onclick="closeGithubErrorModal()" style="width: auto; padding-left: 24px; padding-right: 24px;">Acknowledge & Close</button>
+        </div>
+    </div>
+</div>
+
+<div id="pinVerificationModal" class="pin-modal-overlay" style="display: none;">
+    <div class="pin-modal-card">
+        <h3>Enter Master PIN</h3>
+        <p>This entry is protected. Please enter your PIN to reveal its contents.</p>
+        
+        <div class="modal-pin-display pin-dots-container" style="margin-bottom: 20px;">
+            <div class="pin-dot" id="mpd-1"></div>
+            <div class="pin-dot" id="mpd-2"></div>
+            <div class="pin-dot" id="mpd-3"></div>
+            <div class="pin-dot" id="mpd-4"></div>
+        </div>
+
+        <input type="hidden" id="modalPinInput" value="">
+        <div id="pinErrorMessage" class="pin-error-text" style="display: none; color: #ef4444; margin-bottom: 15px; font-size: 0.9rem;">Incorrect PIN. Access Denied.</div>
+        
+        <div class="custom-keypad generic-modal-keypad" style="margin-bottom: 20px;">
+            <button type="button" class="key-btn" onclick="pressModalPinKey('1')">1</button>
+            <button type="button" class="key-btn" onclick="pressModalPinKey('2')">2</button>
+            <button type="button" class="key-btn" onclick="pressModalPinKey('3')">3</button>
+            
+            <button type="button" class="key-btn" onclick="pressModalPinKey('4')">4</button>
+            <button type="button" class="key-btn" onclick="pressModalPinKey('5')">5</button>
+            <button type="button" class="key-btn" onclick="pressModalPinKey('6')">6</button>
+            
+            <button type="button" class="key-btn" onclick="pressModalPinKey('7')">7</button>
+            <button type="button" class="key-btn" onclick="pressModalPinKey('8')">8</button>
+            <button type="button" class="key-btn" onclick="pressModalPinKey('9')">9</button>
+            
+            <button type="button" class="key-btn special-btn" onclick="clearModalPin()">Clear</button>
+            <button type="button" class="key-btn" onclick="pressModalPinKey('0')">0</button>
+            <button type="button" class="key-btn special-btn" onclick="backspaceModalPin()">⌫</button>
+        </div>
+
+        <div class="pin-modal-actions">
+            <button type="button" onclick="closePinModal()" class="pin-btn-cancel" style="width: 100%; padding: 10px; border-radius: 6px; cursor: pointer;">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
