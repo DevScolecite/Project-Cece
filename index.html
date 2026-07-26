@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="sunset">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Project Cece</title>
+    
+    <!-- PWA & Mobile Optimization Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Cece Vault">
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="theme-dark">
+
+<nav id="globalNav" class="global-nav hidden">
+    <button class="menu-trigger" onclick="toggleDrawer(); event.stopPropagation();" aria-label="Toggle Menu">
+        <span class="menu-icon"></span>
+        <span>Menu</span>
+    </button>
+</nav>
+
+<!-- ==========================================================================
+     CINEMATIC GLASSMORPHIC GATEWAY (SECURE ACCESS GATEWAY)
+     ========================================================================== -->
+<div id="auth-page" class="secure-lockscreen hidden">
+    <!-- Fluid Theme-Reactive Atmospheric Orbs (Absolute Visual Continuity) -->
+    <div class="minimal-ambient-orb orb-alpha"></div>
+    <div class="minimal-ambient-orb orb-beta"></div>
+
+    <!-- STAGE 1: ACCOUNT ACCESS HANDSHAKE LAYER -->
+    <div id="auth-stage-login" class="auth-stage">
+        <div class="lockscreen-header">
+            <div class="lockscreen-avatar">
+                <i class="fas fa-fingerprint lock-brand-icon"></i>
+            </div>
+            <h2>Project Cece</h2>
+            <p id="login-status-text">Account Authentication</p>
+        </div>
+        
+        <div class="login-form-group">
+            <input type="text" id="loginUsername" class="auth-input" placeholder="Email" autocomplete="off">
+            <input type="password" id="loginPassword" class="auth-input" placeholder="Password">
+            <button class="cta-button auth-btn-full" onclick="handleAccountLogin()">Authenticate</button>
+        </div>
+    </div>
+
+    <!-- STAGE 2: HIGH-FIDELITY INTERACTIVE SPRING KEYPAD PANEL -->
+    <div id="auth-stage-pin" class="auth-stage hidden">
+        <div class="lockscreen-header">
+            <div class="lockscreen-avatar">
+                <i class="fas fa-key lock-brand-icon"></i>
+            </div>
+            <h2>Identity Verification</h2>
+            <p id="lockscreen-status">Enter Master Key</p>
+        </div>
+
+        <!-- PIN Dots Buffer Indicator Layout -->
+        <div class="pin-dots-container">
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+        </div>
+
+        <!-- Reference cache tracking vector (hidden input native mirror value) -->
+        <input type="hidden" id="masterPasscode" value="">
+
+        <!-- Hardware-Accelerated Responsive Keypad Controls -->
+        <div class="custom-keypad">
+            <button type="button" class="key-btn" onclick="pressPinKey('1')">1</button>
+            <button type="button" class="key-btn" onclick="pressPinKey('2')">2</button>
+            <button type="button" class="key-btn" onclick="pressPinKey('3')">3</button>
+            
+            <button type="button" class="key-btn" onclick="pressPinKey('4')">4</button>
+            <button type="button" class="key-btn" onclick="pressPinKey('5')">5</button>
+            <button type="button" class="key-btn" onclick="pressPinKey('6')">6</button>
+            
+            <button type="button" class="key-btn" onclick="pressPinKey('7')">7</button>
+            <button type="button" class="key-btn" onclick="pressPinKey('8')">8</button>
+            <button type="button" class="key-btn" onclick="pressPinKey('9')">9</button>
+            
+            <button type="button" class="key-btn special-btn" onclick="clearPin()">Clear</button>
+            <button type="button" class="key-btn" onclick="pressPinKey('0')">0</button>
+            <button type="button" class="key-btn special-btn" onclick="backspacePin()">⌫</button>
+        </div>
+
+        <!-- ESCAPE PIN LOOP BUTTON -->
+        <div style="margin-top: 18px; text-align: center;">
+            <button type="button" onclick="switchAuthUser()" style="background: transparent; border: none; color: var(--text-muted); font-size: 0.8rem; font-weight: 600; cursor: pointer; text-decoration: underline; transition: color 0.2s;">
+                ← Back to Account Login / Switch User
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 📊 PORTAL DECK: CHRONOLOGICAL INTELLIGENCE HUB -->
+<section id="logs-page" class="app-page active hidden">
+    <div class="container animate-fade-in">
+        
+        <div class="page-header-sticky">
+            <h2 class="section-heading"><i class="fas fa-terminal"></i> Timeline Stream</h2>
+        </div>
+
+        <!-- ZONE 1: ECOSYSTEM DIAGNOSTIC METRICS DECK -->
+        <div class="intelligence-metrics-deck mb-30">
+            <div class="metric-intelligence-card total-logs-glow full-width-metric">
+                <div class="metric-card-header">
+                    <span class="metric-label-tag">Logged Sequences</span>
+                    <div class="metric-mini-dot primary-pulse"></div>
+                </div>
+                <div class="metric-counter-display">
+                    <span id="statTotalLogs" class="counter-number">0</span>
+                    <span class="counter-unit">entries</span>
+                </div>
+                <p class="metric-card-desc">Total secure internal memory structures successfully committed to your storage layers.</p>
+            </div>
+        </div>
+
+        <!-- ZONE 2: UNIFIED SUPER COMMAND BAR (Search + Month Filter + Constellation + Create) -->
+        <div class="super-command-bar mb-30">
+            <div class="command-bar-filters">
+                <!-- Real-Time Keyword Search Box -->
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search search-icon-badge"></i>
+                    <input type="text" id="timelineKeywordSearch" placeholder="Search keywords across logs..." oninput="handleTimelineKeywordSearch(this.value)" class="command-search-control" autocomplete="off">
+                </div>
+
+                <!-- Month Filter Dropdown Trigger -->
+                <div class="filter-utility-capsule-wrapper" style="position: relative;">
+                    <button type="button" id="monthFilterTrigger" class="filter-trigger-premium-capsule" onclick="this.classList.toggle('active-panel'); document.getElementById('monthFloatingCard').classList.toggle('show-card-open');">
+                        <span id="currentSelectedMonthText"><i class="fas fa-calendar-alt"></i> All Intervals</span>
+                        <i class="fas fa-chevron-down dropdown-chevron-ui"></i>
+                    </button>
+
+                    <!-- FLOATING CARD MONTH SELECTOR MATRIX -->
+                    <div id="monthFloatingCard" class="month-filter-floating-card">
+                        <div class="floating-card-meta-header">
+                            <span>Select Filter Interval</span>
+                        </div>
+                        <div class="month-interactive-grid">
+                            <div class="month-grid-item active-item" onclick="selectFloatingMonth('all', 'All Intervals', event)">All Intervals</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('january', 'January', event)">January</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('february', 'February', event)">February</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('march', 'March', event)">March</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('april', 'April', event)">April</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('may', 'May', event)">May</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('june', 'June', event)">June</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('july', 'July', event)">July</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('august', 'August', event)">August</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('september', 'September', event)">September</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('october', 'October', event)">October</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('november', 'November', event)">November</div>
+                            <div class="month-grid-item" onclick="selectFloatingMonth('december', 'December', event)">December</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-bar-actions">
+                <button type="button" class="utility-action-btn constellation-map-btn" onclick="toggleConstellationDropdown()" title="Toggle Memory Constellation">
+                    <i class="fa-solid fa-network-wired"></i> <span>Constellation</span>
+                </button>
+                <button type="button" class="utility-action-btn write-trigger-btn" id="add-log-btn" onclick="prepareCreateForm()">
+                    <i class="fas fa-plus"></i> <span>New Log</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ZONE 3: ULTRA-PREMIUM CONSTELLATION GALAXY WORKSPACE -->
+        <div id="constellationDropdownCard" class="constellation-dropdown-panel hidden">
+            <div class="shield-target-container">
+                <div class="constellation-panel-header">
+                    <div class="constellation-header-title">
+                        <div class="header-icon-glow">
+                            <i class="fa-solid fa-meteor text-primary-accent"></i>
+                        </div>
+                        <div class="header-title-text">
+                            <span class="main-title">Stellar Memory Cosmos</span>
+                            <span class="sub-title">Organic Constellation Grid</span>
+                        </div>
+                    </div>
+                    <div class="constellation-header-actions">
+                        <button type="button" class="constellation-close-btn-text" onclick="toggleConstellationDropdown()" aria-label="Close Constellation">
+                            <span>Close</span>
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="constellation-canvas-wrapper" id="constellationWrapper">
+                <canvas id="constellation-canvas"></canvas>
+                <div id="constellationShield" class="constellation-interaction-shield"></div>
+
+                <div class="constellation-hud-overlay">
+                    <div class="hud-top-row">
+                        <div class="hud-stat-pill">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                            <span id="hudNodeCount">0 Nodes</span>
+                        </div>
+                        <div class="hud-controls-group">
+                            <button type="button" class="hud-control-btn" onclick="resetConstellationView()" title="Recenter Matrix">
+                                <i class="fa-solid fa-crosshairs"></i>
+                            </button>
+                            <button type="button" class="hud-control-btn" onclick="zoomConstellationIn()" title="Zoom In">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                            <button type="button" class="hud-control-btn" onclick="zoomConstellationOut()" title="Zoom Out">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hud-bottom-row">
+                        <div class="hud-legend-group">
+                            <span class="legend-item"><span class="legend-dot core"></span> Core</span>
+                            <span class="legend-item"><span class="legend-dot private"></span> Private</span>
+                            <span class="legend-item"><span class="legend-dot normal"></span> Standard</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="constellationTooltip" class="constellation-tooltip hidden">
+                    <div class="tooltip-header">
+                        <span id="tooltipBadge" class="tooltip-badge">Core Memory</span>
+                        <span id="tooltipDate" class="tooltip-date">Jul 03</span>
+                    </div>
+                    <div id="tooltipTitle" class="tooltip-title">Memory Title Placeholder</div>
+                    <div class="tooltip-footer">
+                        <i class="fa-solid fa-arrow-pointer"></i> Click to unlock & open narrative
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ZONE 4: DYNAMIC CHRONOLOGICAL FEED LAYER -->
+        <div id="timelineContainer" class="timeline refined-timeline-architecture"></div>
+
+    </div>
+
+    <!-- TEMPORAL FLASHBACK FAB -->
+    <button type="button" class="flashback-fab" aria-label="Launch Random Memory Flashback" onclick="launchRandomMemoryCapsule()" title="Trigger Neural Flashback">
+        <div class="fab-pulse-ring"></div>
+        <div class="fab-pulse-ring delay-1"></div>
+        <i class="fas fa-history fab-core-icon"></i>
+    </button>
+
+    <!-- CINEMATIC TIME-CAPSULE FLASHBACK MODAL -->
+    <div id="flashbackModal" class="modal-overlay hidden modal-blur-backdrop" onclick="closeFlashbackModal()">
+        <div class="modal-card flashback-capsule-surface animate-scale-up" onclick="event.stopPropagation()">
+            <div class="capsule-ambient-glow-1"></div>
+            <div class="capsule-ambient-glow-2"></div>
+            
+            <div class="modal-header flashback-capsule-header">
+                <div class="modal-tag flashback-capsule-tag">
+                    <i class="fas fa-satellite-dish pulse-effect-ambient"></i> Random Memory Flashback Matrix
+                </div>
+                <button class="modal-close-generic flashback-close-btn" onclick="closeFlashbackModal()">×</button>
+            </div>
+            
+            <div class="flashback-capsule-body">
+                <h3 id="flashbackTitle" class="modal-title flashback-capsule-title">Title Here</h3>
+                <div id="flashbackDate" class="modal-date flashback-capsule-date">
+                    <i class="far fa-clock"></i> Date Here
+                </div>
+                <div class="modal-body-scroll flashback-capsule-scroll">
+                    <p id="flashbackContent" class="flashback-capsule-text">Content Here</p>
+                </div>
+            </div>
+
+            <div class="flashback-capsule-footer">
+                <button type="button" class="capsule-shuffle-next-btn" onclick="launchRandomMemoryCapsule(); playSFX('matrixShift');">
+                    <i class="fas fa-sync-alt"></i> Recall Another Memory
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     CONSTELLATION GALAXY MAP VIEW PANEL
+     ========================================================================== -->
+<section id="constellation-page" class="app-page hidden">
+    <div class="container animate-fade-in" style="height: calc(100vh - 80px); display: flex; flex-direction: column;">
+        <div class="page-header-sticky" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h2 class="section-heading"><i class="fa-solid fa-network-wired"></i> Memory Constellation Galaxy</h2>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Visualizing connections across your timeline structures</p>
+            </div>
+            <button type="button" class="utility-action-btn secondary-btn" onclick="switchPage('logs-page')">
+                <i class="fas fa-arrow-left"></i> <span>Return to Timeline</span>
+            </button>
+        </div>
+        <div style="flex: 1; position: relative; border-radius: 16px; border: 1px solid var(--border-color); background: var(--card-bg); overflow: hidden; margin-top: 15px;">
+            <canvas id="constellation-canvas-page" style="width: 100%; height: 100%; display: block;"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- ⚙️ ENVIRONMENT DECK: NAVIGATION SIDEBAR -->
+<div id="sideDrawer" class="side-drawer" oncontextmenu="return false;" style="-webkit-touch-callout: none; -webkit-user-select: none; user-select: none;">
+    <div class="drawer-glow-orb"></div>
+    
+    <div class="drawer-header">
+        <div class="drawer-logo-group">
+            <div class="drawer-logo">Project Cece</div>
+            <div class="drawer-sub">Secure Environment Workspace</div>
+        </div>
+        <button class="drawer-close" onclick="toggleDrawer(false)" aria-label="Close Navigation Drawer">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <div class="drawer-identity-capsule">
+        <div class="capsule-icon-zone">
+            <i class="fas fa-heart pulse-effect-ambient"></i>
+        </div>
+        <div class="capsule-meta-zone">
+            <span class="capsule-tag">System Muse Status</span>
+            <p class="capsule-title">Cece Connection Active</p>
+            <p class="capsule-desc">Dedicated to those inverted C's laughing eyes.</p>
+        </div>
+    </div>
+
+    <ul class="drawer-links" style="-webkit-touch-callout: none; -webkit-user-select: none; user-select: none;">
+        <li onclick="navigateFromMenu('logs')" oncontextmenu="return false;" style="-webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;">
+            <div class="nav-icon-frame font-logs-tint"><i class="fas fa-book-open"></i></div>
+            <div class="nav-text-frame">
+                <span class="nav-title">Diary Logs</span>
+                <span class="nav-desc">Review, search, and update personal memory streams.</span>
+            </div>
+            <i class="fas fa-chevron-right nav-arrow-indicator"></i>
+        </li>
+        <li onclick="navigateFromMenu('personalization')" oncontextmenu="return false;" style="-webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;">
+            <div class="nav-icon-frame font-theme-tint"><i class="fas fa-palette"></i></div>
+            <div class="nav-text-frame">
+                <span class="nav-title">Personalization</span>
+                <span class="nav-desc">Mutate workspace aesthetics and interface fonts.</span>
+            </div>
+            <i class="fas fa-chevron-right nav-arrow-indicator"></i>
+        </li>
+        <li onclick="navigateFromMenu('settings')" oncontextmenu="return false;" style="-webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;">
+            <div class="nav-icon-frame font-settings-tint"><i class="fas fa-sliders-h"></i></div>
+            <div class="nav-text-frame">
+                <span class="nav-title">Settings & Security</span>
+                <span class="nav-desc">Configure master PIN gates and cloud storage keys.</span>
+            </div>
+            <i class="fas fa-chevron-right nav-arrow-indicator"></i>
+        </li>
+        <li onclick="navigateFromMenu('about')" oncontextmenu="return false;" style="-webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;">
+            <div class="nav-icon-frame font-about-tint"><i class="fas fa-info-circle"></i></div>
+            <div class="nav-text-frame">
+                <span class="nav-title">About</span>
+                <span class="nav-desc">Check operational layers and creator blueprints.</span>
+            </div>
+            <i class="fas fa-chevron-right nav-arrow-indicator"></i>
+        </li>
+    </ul>
+
+    <div class="drawer-footer">
+        <div id="drawer-role-text" class="drawer-role-status">
+            <span class="status-dot-active"></span>
+            Logged in as Master (Lance)
+        </div>
+        <div class="footer-meta-grid">
+            <span class="footer-meta-pill">Build v2.149.315.125</span>
+            <span class="footer-meta-pill success"><i class="fas fa-shield-alt"></i> Sandboxed</span>
+        </div>
+        <div class="footer-status">Environment Node Target: Connected</div>
+    </div>
+</div>
+
+<!-- ==========================================================================
+     CINEMATIC MINIMALIST LANDING PAGE
+     ========================================================================== -->
+<section id="landing-page" class="app-page active">
+    <div class="minimal-ambient-orb orb-alpha"></div>
+    <div class="minimal-ambient-orb orb-beta"></div>
+    
+    <div class="minimal-center-stage">
+        <h1 class="minimal-title">Project Cece</h1>
+        
+        <p class="landing-description">
+            A little place where I keep the moments, memories, 
+            <br>and feelings I never want to forget.
+        </p>
+        
+        <div class="minimal-action-deck">
+            <button type="button" class="minimal-launch-btn" onclick="openSecureWorkspace()" title="Open Application">
+                Initialize Workspace <span class="btn-arrow-icon">→</span>
+            </button>
+            <div class="minimal-button-glow-ring"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     PREMIUM WORKSPACE CREATION PANEL (#create-log-page)
+     ========================================================================== -->
+<div id="create-log-page" class="app-page hidden workspace-canvas-container">
+    
+    <!-- OPENROUTER API CONFIGURATION FLOATING OVERLAY -->
+    <div id="api-config-overlay" class="dialog-overlay-wrapper modal-blur-backdrop" style="display: none;">
+        <div class="dialog-card-surface theme-grid-card active-monitor-glow">
+            <div class="modal-header">
+                <span class="modal-tag"><i class="fas fa-key"></i> System Authentication</span>
+            </div>
+            
+            <div class="lockscreen-header" style="margin-bottom: 16px;">
+                <div class="dev-avatar-frame profile-avatar-tint" style="margin: 0 auto 12px auto;">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3 class="modal-title">OpenRouter Link Required</h3>
+                <p class="dialog-description">Project Cece needs an active OpenRouter API key to securely process and polish your monologues.</p>
+            </div>
+
+            <div class="login-form-group">
+                <div class="field-stack width-full">
+                    <label for="openRouterKeyInput">API Token Key</label>
+                    <div class="input-icon-composite">
+                        <i class="fas fa-lock field-composite-icon"></i>
+                        <input type="password" id="openRouterKeyInput" class="form-control auth-input" placeholder="sk-or-v1-..." autocomplete="off">
+                    </div>
+                </div>
+                
+                <p id="api-error-diagnostic" class="pin-error-text hidden" style="margin-top: 8px; margin-bottom: 0;"></p>
+                
+                <div class="form-actions-wrapper" style="margin-top: 20px;">
+                    <button type="button" id="bypassApiModalBtn" class="btn-capsule btn-capsule-outline btn-align-right">Bypass</button>
+                    <button type="button" id="saveApiModalBtn" class="btn-capsule submission-master-btn" style="width: auto !important; padding: 10px 24px !important;">Initialize Link</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workspace Header Block -->
+    <div class="workspace-header-tier">
+        <div class="header-text-block">
+            <h2 id="formPageTitle">Add New Entry</h2>
+            <p class="card-subtitle">Syncing records directly to secure distributed repository nodes.</p>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <button type="button" class="zen-mode-toggle-btn" onclick="toggleZenMode()" title="Toggle Zen Mode">
+                <i class="fa-solid fa-expand" id="zenModeIcon"></i>
+                <span class="zen-btn-text">Zen</span>
+            </button>
+            <button type="button" class="utility-action-btn secondary-btn" onclick="switchPage('logs-page'); playSFX('swishClose');">
+                <i class="fas fa-arrow-left"></i> <span>Cancel</span>
+            </button>
+        </div>
+    </div>
+
+    <form onsubmit="event.preventDefault();" class="workspace-form-element" id="workspaceFormElementCard">
+        
+        <div class="form-metadata-grid">
+            <div class="field-stack">
+                <label for="eventTitle">Log Identifier / Title</label>
+                <div class="input-icon-composite">
+                    <i class="far fa-bookmark field-composite-icon"></i>
+                    <input type="text" id="eventTitle" placeholder="Enter descriptive memory vector name..." required class="form-control">
+                </div>
+            </div>
+
+            <div class="field-stack">
+                <label>Chronological Date</label>
+                
+                <div class="chronological-date-zone" style="position: relative; width: 100%;">
+                    <div class="input-icon-composite">
+                        <i class="far fa-calendar-alt field-composite-icon"></i>
+                        <button type="button" id="calendarCardTrigger" class="filter-trigger-premium-capsule custom-calendar-trigger-btn">
+                            <span id="currentTargetDateDisplay">Select Date...</span>
+                            <i class="dropdown-chevron-ui fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    
+                    <input type="hidden" id="eventDate" required>
+                    <input type="hidden" id="selectedFormDate" value="">
+
+                    <!-- CUSTOM FLOATING CALENDAR DROP FRAME -->
+                    <div id="customCalendarFloatingCard" class="month-filter-floating-card calendar-extended-card" style="position: absolute; top: calc(100% + 6px); left: 0; width: 100%; z-index: 1000; box-sizing: border-box;">
+                        <div class="calendar-nav-header">
+                            <button type="button" id="prevMonthBtn" class="calendar-nav-btn"><i class="fas fa-chevron-left"></i></button>
+                            <span id="calendarMonthYearTitle">July 2026</span>
+                            <button type="button" id="nextMonthBtn" class="calendar-nav-btn"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar-days-grid-labels">
+                            <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                        </div>
+                        <div id="calendarDaysGrid" class="calendar-days-grid-interactive"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field-stack width-full">
+            <div class="text-area-label-row">
+                <label for="eventContent">Narrative Monologue Memory Stream</label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <button type="button" class="zen-mode-toggle-btn" onclick="toggleZenMode()" title="Toggle Zen Mode">
+                        <i class="fa-solid fa-expand" id="zenModeIcon"></i>
+                        <span class="zen-btn-text">Zen</span>
+                    </button>
+                    <button type="button" id="voice-dictate-btn" onclick="toggleVoiceDictation()" class="ai-polish-pill-btn" style="background: var(--input-bg);">
+                        <i class="fa-solid fa-microphone"></i> <span id="dictation-status">Dictate</span>
+                    </button>
+                    <button type="button" onclick="improveWithAI();" class="ai-polish-pill-btn">
+                        <i class="fas fa-magic"></i> Apply AI Grammar Polish
+                    </button>
+                </div>
+            </div>
+            
+            <div class="textarea-relative-box">
+                <textarea id="eventContent" placeholder="Pour out the raw sequence flow details here... Taglish allowed, keep it raw." required class="workspace-textarea premium-canvas-area"></textarea>
+            </div>
+        </div>
+
+        <details class="auxiliary-atmosphere-deck width-full">
+            <summary class="atmosphere-deck-summary">
+                <span class="utility-strip-label"><i class="dropdown-chevron-ui fas fa-chevron-right"></i> Atmospheric Configuration & Files</span>
+            </summary>
+            <div class="atmosphere-deck-content">
+                <div id="formAudioDropZone" class="custom-atmosphere-drop-frame">
+                    <i class="fas fa-cloud-upload-alt upload-frame-icon"></i>
+                    <div class="upload-primary-text">Drop .mp3 frame packages or tap to select binary track package</div>
+                    <div class="upload-secondary-text">Direct GitHub CDN Cloud Stream Sync Integration</div>
+                </div>
+                <input type="file" id="formAudioFileInput" accept=".mp3" style="display: none;">
+            </div>
+        </details>
+
+        <div class="security-configuration-card width-full">
+            <div class="security-meta-layout">
+                <div class="security-badge-icon-frame">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="security-text-stack">
+                    <span class="security-title-label">Runtime Encryption Masking</span>
+                    <span class="security-desc-label">Restricts visualization visibility matrices. Requires master PIN keys validation layer to reveal narrative contents.</span>
+                </div>
+            </div>
+            
+            <label class="premium-switch-node">
+                <input type="checkbox" id="eventPrivacy">
+                <span class="switch-slider-node"></span>
+            </label>
+        </div>
+
+        <div class="execution-submission-bar width-full">
+            <button type="button" onclick="publishNewEvent();" class="utility-action-btn write-trigger-btn submission-master-btn">
+                <i class="fas fa-file-signature"></i> <span>Publish Entry Sequence</span>
+            </button>
+        </div>
+
+    </form>
+</div>
+
+<!-- ==========================================================================
+     PORTAL DECK: INTERFACE CONFIGURATION LABORATORY (#personalization-page)
+     ========================================================================== -->
+<section id="personalization-page" class="app-page hidden">
+    <div class="container animate-fade-in">
+        
+        <div class="page-header-sticky">
+            <h2 class="section-heading"><i class="fas fa-palette"></i>Personalization</h2>
+        </div>
+
+        <div class="status-card mb-30 active-monitor-glow">
+            <div class="status-title-flex">
+                <div class="status-title">
+                    <span class="pulse-dot"></span>
+                    <span>Active Interface State:</span>
+                </div>
+                <span id="activeThemeLabel" class="active-theme-pill-badge">Dark Midnight</span>
+            </div>
+            <p class="status-text">Select an environmental profile below. The workspace color canvas, contrast values, and component behaviors will instantly mutate without interrupting active cache storage layers.</p>
+        </div>
+
+        <div class="premium-customization-matrix">
+            <div class="customization-section-card mb-24">
+                <div class="section-header-meta">
+                    <h3>Visual Canvas Themes</h3>
+                    <p class="section-subtitle">Tailor the workspace luminance configuration to best fit your immediate lighting environment.</p>
+                </div>
+
+                <button type="button" class="theme-dropdown-trigger" id="themeDropdownGridBtn" onclick="toggleThemeGridDropdown(event)">
+                    <span class="trigger-meta-group">
+                        <i class="fas fa-paint-brush dropdown-icon-tint"></i>
+                        <span id="currentDropdownThemeText">Dark Midnight</span>
+                    </span>
+                    <span class="dropdown-chevron">▼</span>
+                </button>
+
+                <div id="themeGridDropdownContainer" class="theme-grid-dropdown-content">
+                    <div class="theme-grid-selection">
+                        
+                        <div class="theme-grid-card" onclick="applyThemeMutation('light')">
+                            <div class="theme-preview-box preview-light"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                            <div class="theme-card-body-meta">
+                                <div class="theme-meta-header">
+                                    <strong class="theme-card-title">Light Minimalist</strong>
+                                    <div id="indicator-light" class="card-radio-indicator"></div>
+                                </div>
+                                <p class="theme-card-desc">High-contrast slate accents over a stark white daytime canvas layout.</p>
+                            </div>
+                        </div>
+
+                        <div class="theme-grid-card" onclick="applyThemeMutation('dark')">
+                            <div class="theme-preview-box preview-dark"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                            <div class="theme-card-body-meta">
+                                <div class="theme-meta-header">
+                                    <strong class="theme-card-title">Dark Midnight</strong>
+                                    <div id="indicator-dark" class="card-radio-indicator"></div>
+                                </div>
+                                <p class="theme-card-desc">Low-luminance deep slates engineered to eliminate screen glare.</p>
+                            </div>
+                        </div>
+
+                        <div class="theme-grid-card" onclick="applyThemeMutation('sunset')">
+                            <div class="theme-preview-box preview-sunset"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                            <div class="theme-card-body-meta">
+                                <div class="theme-meta-header">
+                                    <strong class="theme-card-title">Sunset Warmth</strong>
+                                    <div id="indicator-sunset" class="card-radio-indicator"></div>
+                                </div>
+                                <p class="theme-card-desc">Comfortable amber glows and soft clay undertones for evening hours.</p>
+                            </div>
+                        </div>
+
+                        <div class="theme-grid-card" onclick="applyThemeMutation('crimson')">
+                            <div class="theme-preview-box preview-crimson"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                            <div class="theme-card-body-meta">
+                                <div class="theme-meta-header">
+                                    <strong class="theme-card-title">Crimson Richness</strong>
+                                    <div id="indicator-crimson" class="card-radio-indicator"></div>
+                                </div>
+                                <p class="theme-card-desc">Deep velvety burgundy tones balanced against clean interface highlights.</p>
+                            </div>
+                        </div>
+
+                        <div class="theme-grid-card" onclick="applyThemeMutation('sepia')">
+                            <div class="theme-preview-box preview-brown"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                            <div class="theme-card-body-meta">
+                                <div class="theme-meta-header">
+                                    <strong class="theme-card-title">Earthy Sepia</strong>
+                                    <div id="indicator-sepia" class="card-radio-indicator"></div>
+                                </div>
+                                <p class="theme-card-desc">Organic warm parchment background geometries optimized for classic reading.</p>
+                            </div>
+                        </div>
+
+                        <div class="theme-grid-card" onclick="applyThemeMutation('army')">
+                            <div class="theme-preview-box preview-army"><div class="mini-app-window"><div class="mini-sidebar"></div><div class="mini-body"><div class="mini-header-bar"></div><div class="mini-timeline-card"><div class="mini-title-line"></div><div class="mini-body-line"></div></div></div></div></div>
+                            <div class="theme-card-body-meta">
+                                <div class="theme-meta-header">
+                                    <strong class="theme-card-title">Army Olive Drab</strong>
+                                    <div id="indicator-army" class="card-radio-indicator"></div>
+                                </div>
+                                <p class="theme-card-desc">Understated muted moss green schemes providing a clean tactical space.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="customization-section-card mb-24">
+                <div class="section-header-meta">
+                    <h3>Workspace Font Scaling</h3>
+                    <p class="section-subtitle">Adjust the baseline scaling rules dynamically across all log entries and navigation blocks.</p>
+                </div>
+
+                <div class="font-scale-wrapper">
+                    <span class="font-indicator small-a">A</span>
+                    <div class="slider-track-container">
+                        <input type="range" id="premiumFontSlider" min="80" max="120" value="100" class="premium-slider">
+                    </div>
+                    <span class="font-indicator large-a">A</span>
+                    <span class="badge" id="fontSizeDisplay">100%</span>
+                </div>
+
+                <div class="live-font-preview-canvas">
+                    <span class="preview-canvas-tag">Dynamic Scale Preview</span>
+                    <p id="liveTextPreviewNode">This is an active render preview. Adjust the font scale track slider above to dynamically monitor real-time readability changes inside this client container window.</p>
+                </div>
+            </div>
+
+            <div class="customization-section-card">
+                <div class="section-header-meta">
+                    <h3>Acoustic Sound Design</h3>
+                    <p class="section-subtitle">Manage tactical audio clicks, sound waves, and warning feedback states generated by the client engine.</p>
+                </div>
+                
+                <div class="personalization-audio-settings">
+                    <div class="audio-control-interactive-row">
+                        <div class="audio-label-block">
+                            <span class="audio-panel-title">System Audio Triggers</span>
+                            <span class="audio-panel-desc">Play localized click effects during navigation transitions.</span>
+                        </div>
+                        <input type="checkbox" id="sfxToggle" checked class="form-checkbox-ui" onchange="handleSfxToggle(this)">
+                    </div>
+
+                    <div class="audio-control-divider"></div>
+
+                    <div class="audio-mixer-panel-row">
+                        <div class="mixer-meta-group">
+                            <span class="audio-panel-title">System FX Master Volume</span>
+                            <span class="audio-panel-desc">Controls the audio scaling layer for general warning modals.</span>
+                        </div>
+                        <div class="mixer-slider-wrapper">
+                            <i class="fas fa-volume-down mixer-icon"></i>
+                            <input type="range" id="sfx-volume" min="0" max="100" value="40" class="premium-slider">
+                            <i class="fas fa-volume-up mixer-icon"></i>
+                            <span class="badge" id="sfx-vol-indicator">40%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     PREMIUM WORKSPACE CONFIGURATION MODULE (#settings-page)
+     ========================================================================== -->
+<div id="settings-page" class="app-page hidden" style="width: 100%; max-width: 800px; margin: 0 auto; padding: 24px 16px; box-sizing: border-box;">
+    
+    <div class="page-header-sticky" style="height: auto; min-height: 56px; padding: 12px 0; flex-direction: column; align-items: flex-start; gap: 8px; border-bottom: 1px solid var(--border-color); margin-bottom: 25px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 12px; box-sizing: border-box;">
+            <h2 class="section-heading" style="margin: 0 !important; border: none !important;"><i class="fas fa-sliders-h"></i> System Settings</h2>
+            <div id="settings-role-badge" style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; padding: 6px 14px; border-radius: 30px; letter-spacing: 0.5px; border: 1px solid var(--border-color); display: inline-flex; align-items: center; gap: 6px; background: var(--card-bg); color: var(--text-main);">
+                Detecting Session Profile...
+            </div>
+        </div>
+        <p style="margin: 0; font-size: 0.82rem; color: var(--text-muted); opacity: 0.8; padding-left: 5px;">Manage application variables, secure cloud keys, and terminal parameters.</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+
+        <!-- CLOUD VAULT REGISTRY Connection Card -->
+        <div class="settings-workspace-card" style="padding: 24px; border-radius: 16px; border: 1px solid var(--border-color); background: var(--card-bg); box-shadow: 0 8px 30px var(--shadow-color); box-sizing: border-box;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(96, 165, 250, 0.08); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; border: 1px solid var(--border-color);">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                        <h3 style="margin: 0; font-size: 0.95rem; font-weight: 800; color: var(--text-main);">Cloud Vault Registry Connection</h3>
+                        <p style="margin: 0; font-size: 0.76rem; color: var(--text-muted);">Sync chronologies securely to your upstream file structure nodes.</p>
+                    </div>
+                </div>
+                <div id="cloudConnectionBadge" class="connection-status-pill offline" style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.5px; font-family: monospace;">
+                    <span id="cloudStatusTextText">Unlinked Node</span>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label for="githubTokenInput" style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.8px;">Personal Access Token (PAT)</label>
+                    <div style="position: relative; display: flex; align-items: center;">
+                        <i class="fas fa-key" style="position: absolute; left: 16px; color: var(--text-muted); opacity: 0.5; font-size: 0.85rem;"></i>
+                        <input type="password" id="githubTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" oninput="saveTokenWithFeedback(this.value)"
+                               style="width: 100%; padding: 14px 44px 14px 44px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-main); font-family: monospace; font-size: 0.88rem; outline: none; box-sizing: border-box; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
+                        <button type="button" onclick="toggleTokenFieldVisibility()" style="position: absolute; right: 14px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; opacity: 0.7; font-size: 0.9rem; padding: 4px; display: flex; align-items: center; justify-content: center;">
+                            <i id="tokenVisibilityIcon" class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px; gap: 12px; flex-wrap: wrap;">
+                    <button type="button" id="verifyTokenCloudBtn" onclick="testGitHubTokenConnection()" 
+                            style="background: var(--primary); color: #ffffff; border: none; padding: 10px 18px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px var(--shadow-color);">
+                        <i class="fas fa-sync-alt"></i> <span>Test Cloud Authentication</span>
+                    </button>
+                    <div id="tokenStatusText" style="font-size: 0.76rem; font-weight: 600; text-align: right; color: var(--text-muted); transition: all 0.2s;">
+                        Awaiting token string data validation.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RUNTIME ENVIRONMENT MASKS & SECURITY CARD -->
+        <div class="settings-workspace-card" style="padding: 24px; border-radius: 16px; border: 1px solid var(--border-color); background: var(--card-bg); box-shadow: 0 8px 30px var(--shadow-color); box-sizing: border-box;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(96, 165, 250, 0.08); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; border: 1px solid var(--border-color);">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                        <h3 style="margin: 0; font-size: 0.95rem; font-weight: 800; color: var(--text-main);">Global Privacy Masking</h3>
+                        <p style="margin: 0; font-size: 0.76rem; color: var(--text-muted);">Blur dynamic content vectors until individual credentials pass.</p>
+                    </div>
+                </div>
+                <label class="premium-switch-node" style="margin-left: 12px; flex-shrink: 0;">
+                    <input type="checkbox" class="privacy-conceal-checkbox" onchange="togglePrivacyConcealment()">
+                    <span class="switch-slider-node"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- UPGRADED SYSTEM TELEMETRY & ANALYTICS COMMAND CENTER CARD -->
+        <div class="telemetry-command-center-card" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; box-shadow: 0 8px 30px var(--shadow-color); box-sizing: border-box;">
+            
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-microchip" style="font-size: 0.9rem;"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 800; font-size: 0.95rem; color: var(--text-main); letter-spacing: -0.2px;">System Telemetry & Analytics</div>
+                        <div style="font-size: 0.72rem; color: var(--text-muted);">Real-time diagnostics and local resource usage</div>
+                    </div>
+                </div>
+                <span id="localStorageBytesPill" style="font-family: monospace; font-size: 0.75rem; font-weight: 700; background: var(--primary-light); color: var(--primary); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-color);">Calculur...</span>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.76rem; font-weight: 700; margin-bottom: 6px; color: var(--text-muted);">
+                    <span>LOCAL STORAGE QUOTA USAGE</span>
+                    <span id="lastSyncTimestamp" style="font-family: monospace;">Synced: <span id="telemetryLastSync">--:--:--</span></span>
+                </div>
+                <div style="width: 100%; height: 8px; background: var(--input-bg); border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color);">
+                    <div id="storageProgressBar" style="width: 0%; height: 100%; background: var(--primary); transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);"></div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px;">
+                <div style="background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; text-align: center;">
+                    <div style="font-size: 1.3rem; font-weight: 900; color: var(--primary); margin-bottom: 2px;" id="telemetryTotalLogs">0</div>
+                    <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Indexed Logs</div>
+                </div>
+
+                <div style="background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; text-align: center;">
+                    <div style="font-size: 1.3rem; font-weight: 900; color: #22c55e; margin-bottom: 2px;" id="telemetryTotalWords">0</div>
+                    <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Total Words</div>
+                </div>
+
+                <div style="background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; text-align: center;">
+                    <div style="font-size: 1.3rem; font-weight: 900; color: #eab308; margin-bottom: 2px;" id="telemetryCoreMemories">0</div>
+                    <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Core Memories</div>
+                </div>
+
+                <div style="background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; text-align: center;">
+                    <div style="font-size: 1.3rem; font-weight: 900; color: #60a5fa; margin-bottom: 2px;" id="telemetryEncryptedLogs">0</div>
+                    <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Encrypted Logs</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 20px;">
+                <div style="background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px;">
+                    <div style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.5px;">System Runtime Status</div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; padding: 3px 0;">
+                        <span style="opacity: 0.8;">Notifications:</span>
+                        <span id="telemetryNotifStatus" style="font-weight: 700;">Checking...</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; padding: 3px 0;">
+                        <span style="opacity: 0.8;">Environment:</span>
+                        <span id="telemetryPwaStatus" style="font-weight: 700;">Checking...</span>
+                    </div>
+                </div>
+
+                <div style="background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; max-height: 120px; overflow-y: auto; scrollbar-width: thin;">
+                    <div style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.5px;">Storage Key Map</div>
+                    <div id="storageBreakdownList"></div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button type="button" onclick="exportWorkspaceBackup()" style="flex: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-main); font-weight: 700; font-size: 0.78rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;">
+                    <i class="fas fa-file-download" style="color: var(--primary);"></i> Export JSON Backup
+                </button>
+                <label for="import-json-file" style="flex: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-main); font-weight: 700; font-size: 0.78rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; text-align: center;">
+                    <i class="fas fa-upload" style="color: var(--primary);"></i> Import Backup
+                </label>
+                <input type="file" id="import-json-file" accept=".json" class="hidden" onchange="importWorkspaceBackup(event)">
+                <button type="button" onclick="purgeWorkspaceTelemetryCache()" style="padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color); background: rgba(239, 68, 68, 0.05); color: #ef4444; font-weight: 700; font-size: 0.78rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;">
+                    <i class="fas fa-trash-alt"></i> Purge Cache
+                </button>
+            </div>
+            
+            <div style="margin-top: 14px;">
+                <button type="button" onclick="showLogoutModal()" 
+                        style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(239, 68, 68, 0.2); background: rgba(239, 68, 68, 0.03); color: #ef4444; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box;">
+                    <i class="fas fa-sign-out-alt"></i> <span>Logout Current Session</span>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- ==========================================================================
+     PORTAL DECK: ABOUT PAGE & CREATOR BLUEPRINT (#about-page)
+     ========================================================================== -->
+<!-- 🔍 PORTAL DECK: ABOUT SYSTEM PAGE -->
+<div id="about-page" class="app-page hidden" style="width: 100%; max-width: 800px; margin: 0 auto; padding: 24px 16px; box-sizing: border-box;">
+    
+    <div class="page-header-sticky" style="height: auto; min-height: 56px; padding: 12px 0; flex-direction: column; align-items: flex-start; gap: 8px; border-bottom: 1px solid var(--border-color); margin-bottom: 25px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 12px; box-sizing: border-box;">
+            <h2 class="section-heading" style="margin: 0 !important; border: none !important; font-size: 1.15rem;"><i class="fas fa-satellite-dish"></i> System Telemetry</h2>
+            <div style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; padding: 5px 12px; border-radius: 30px; letter-spacing: 0.5px; border: 1px solid var(--border-color); display: inline-flex; align-items: center; gap: 6px; background: rgba(34, 197, 94, 0.1); color: #22c55e; flex-shrink: 0;">
+                <span style="width: 6px; height: 6px; background: #22c55e; border-radius: 50%; display: inline-block;"></span> Core Online
+            </div>
+        </div>
+        <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted); opacity: 0.8;">Core architecture specifications and developer archives.</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 24px; width: 100%; box-sizing: border-box;">
+        
+        <!-- MAIN COMMAND CARD -->
+        <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; box-shadow: 0 8px 30px var(--shadow-color); box-sizing: border-box; width: 100%;">
+            
+            <!-- Modern Tab Navigation -->
+            <div style="display: flex; gap: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 24px; flex-wrap: wrap;">
+                <button type="button" class="about-tab-btn active" onclick="switchAboutTab('telemetry', event)" style="background: var(--primary-light); border: 1px solid var(--border-color); outline: none; color: var(--primary); font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; padding: 10px 18px; border-radius: 10px; transition: all 0.2s; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-terminal"></i> System Telemetry
+                </button>
+                <button type="button" class="about-tab-btn" onclick="switchAboutTab('profile', event)" style="background: transparent; border: 1px solid transparent; outline: none; color: var(--text-muted); font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; padding: 10px 18px; border-radius: 10px; transition: all 0.2s; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-user-astronaut"></i> Developer Profile
+                </button>
+            </div>
+
+            <!-- PANEL 1: SYSTEM TELEMETRY -->
+            <div id="about-tab-telemetry" class="about-tab-pane active" style="width: 100%; box-sizing: border-box;">
+                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding: 20px; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--border-color); box-sizing: border-box;">
+                    <div style="width: 48px; height: 48px; border-radius: 12px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 1px solid var(--border-color); flex-shrink: 0;">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <span style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--primary); letter-spacing: 0.8px;">Root Administrator Clearance</span>
+                        <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: var(--text-main);">Secure Environment Overview</h3>
+                    </div>
+                </div>
+
+                <div style="font-size: 0.9rem; line-height: 1.7; color: var(--text-main); opacity: 0.9; margin-bottom: 24px; text-align: justify;">
+                    <p style="margin: 0 0 12px 0;"><strong>Welcome to the core repository container.</strong> This interface functions as a localized personal workspace layer, engineered to preserve private entry logs, track architectural adjustments, and pipeline secondary assets seamlessly into secure remote data vaults.</p>
+                    <p style="margin: 0;">Built with privacy-first parameters, this engine strictly isolates text nodes and configuration states directly inside your browser cache layer. Zero tracking engines, zero third-party leakage, and complete environmental independence.</p>
+                </div>
+
+                <div style="height: 1px; background: var(--border-color); margin: 24px 0; opacity: 0.7;"></div>
+
+                <h4 style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; letter-spacing: 0.8px;">Integrated Environment Stack</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+                    <div style="padding: 14px; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fab fa-css3-alt"></i></div>
+                        <div>
+                            <h5 style="margin: 0; font-size: 0.82rem; font-weight: 800; color: var(--text-main);">Dynamic CSS Engine</h5>
+                            <p style="margin: 0; font-size: 0.72rem; color: var(--text-muted);">Design tokens</p>
+                        </div>
+                    </div>
+                    <div style="padding: 14px; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(234, 179, 8, 0.1); color: #eab308; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fab fa-js"></i></div>
+                        <div>
+                            <h5 style="margin: 0; font-size: 0.82rem; font-weight: 800; color: var(--text-main);">State Management</h5>
+                            <p style="margin: 0; font-size: 0.72rem; color: var(--text-muted);">Async runtime handler</p>
+                        </div>
+                    </div>
+                    <div style="padding: 14px; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(168, 85, 247, 0.1); color: #a855f7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fab fa-github"></i></div>
+                        <div>
+                            <h5 style="margin: 0; font-size: 0.82rem; font-weight: 800; color: var(--text-main);">Cloud Vault Sync</h5>
+                            <p style="margin: 0; font-size: 0.72rem; color: var(--text-muted);">Secure Gist REST pipe</p>
+                        </div>
+                    </div>
+                    <div style="padding: 14px; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(34, 197, 94, 0.1); color: #22c55e; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fas fa-shield-alt"></i></div>
+                        <div>
+                            <h5 style="margin: 0; font-size: 0.82rem; font-weight: 800; color: var(--text-main);">Privacy Shield</h5>
+                            <p style="margin: 0; font-size: 0.72rem; color: var(--text-muted);">Client PIN encryption</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL 2: DEVELOPER PROFILE DECK -->
+            <div id="about-tab-profile" class="about-tab-pane" style="display: none; width: 100%; box-sizing: border-box;">
+                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding: 20px; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--border-color); box-sizing: border-box;">
+                    <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(236, 72, 153, 0.1); color: #ec4899; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 1px solid var(--border-color); flex-shrink: 0;">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <span style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #ec4899; letter-spacing: 0.8px;">Creator Profile Archive</span>
+                        <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: var(--text-main);">Meet the Developer // Lance</h3>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div style="padding: 16px; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--border-color);">
+                        <h4 style="margin: 0 0 6px 0; font-size: 0.9rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px;"><i class="fas fa-hand-holding-heart" style="color: var(--primary);"></i> About Me</h4>
+                        <p style="margin: 0; font-size: 0.85rem; line-height: 1.6; color: var(--text-muted);">Hi! I'm <strong>Lance</strong>. I'm originally from the busy streets of Pasig, but I currently live out in <strong>Magallanes, Cavite</strong> and study at <strong>De Guia Academy</strong>.</p>
+                    </div>
+
+                    <div style="padding: 16px; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--border-color);">
+                        <h4 style="margin: 0 0 6px 0; font-size: 0.9rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px;"><i class="fas fa-book-open" style="color: var(--primary);"></i> Why I Built This Website</h4>
+                        <p style="margin: 0; font-size: 0.85rem; line-height: 1.6; color: var(--text-muted);">I created this project to be my personal digital time capsule. Life moves fast, and it's easy to lose track of the little things—the late-night thoughts, the small milestones, and the exact feelings you have on a random day. I wanted a private, secure corner of the internet to store my memories so they never fade away.</p>
+                    </div>
+
+                    <div style="padding: 16px; border-radius: 12px; background: var(--input-bg); border: 1px solid var(--border-color);">
+                        <h4 style="margin: 0 0 6px 0; font-size: 0.9rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px;"><i class="fas fa-smile-wink" style="color: var(--primary);"></i> The Story Behind "Cece"</h4>
+                        <p style="margin: 0; font-size: 0.85rem; line-height: 1.6; color: var(--text-muted);">While this site is a place for my own memories, the heart behind it belongs to someone incredibly special who is a beautiful mix of Mestiza and Chinita. She goes by a couple of nicknames (like Chin), but I call her <strong>'Cece'</strong>—mostly because whenever she laughs, her eyes literally turn into two perfect, little inverted C's. Naming this app <i>Project Cece</i> is just my quiet, romantic way of keeping her close and saying hi through the code.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SIDEBAR DIAGNOSTICS CARD (STACKED) -->
+        <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; box-shadow: 0 8px 30px var(--shadow-color); box-sizing: border-box; width: 100%; display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+                <span style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.8px;">Registry Diagnostics</span>
+                <div style="font-size: 0.72rem; font-weight: 700; color: #22c55e; display: flex; align-items: center; gap: 6px;">
+                    <span style="width: 6px; height: 6px; background: #22c55e; border-radius: 50%; display: inline-block;"></span> Live
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                <span style="color: var(--text-muted);">Workspace Layer</span>
+                <span style="font-weight: 700; font-family: monospace; color: var(--text-main);">v2.149.315</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                <span style="color: var(--text-muted);">Cache Containment</span>
+                <span style="font-weight: 700; color: #22c55e;">Encrypted</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                <span style="color: var(--text-muted);">Remote Node</span>
+                <span id="sidebarCloudStatusText" style="font-weight: 700; color: var(--primary);">Standalone</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                <span style="color: var(--text-muted);">Environment</span>
+                <span style="font-weight: 700; color: var(--text-main);">Client Node</span>
+            </div>
+            
+            <div style="height: 1px; background: var(--border-color); margin: 4px 0;"></div>
+            
+            <div style="font-size: 0.78rem;">
+                <span style="color: var(--text-muted); display: block; margin-bottom: 4px;">Compilation Date</span>
+                <p style="margin: 0; font-weight: 700; color: var(--text-main); font-family: monospace;"><i class="far fa-calendar-alt" style="color: var(--primary); margin-right: 6px;"></i> July 2026</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <div style="margin-top: 30px; text-align: center;">
+        <div style="font-family: monospace; font-size: 0.7rem; color: var(--text-muted); opacity: 0.6; letter-spacing: 1px;">SYS.LOC.ENV // ID-DECK-8402X // SECURITY_LEVEL_MAX</div>
+    </div>
+</div>
+
+
+<!-- ==========================================================================
+     COMMAND PALETTE MODAL (Ctrl+K)
+     ========================================================================== -->
+<div id="cmd-palette-modal" class="modal-overlay hidden modal-blur-backdrop" onclick="closeCommandPalette()" style="display: none; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 999999;">
+    <div class="cmd-card animate-scale-up" onclick="event.stopPropagation()" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; max-width: 500px; overflow: hidden; box-shadow: 0 25px 50px var(--shadow-color);">
+        <div class="cmd-search-box" style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border-color); gap: 12px;">
+            <i class="fa-solid fa-terminal" style="color: var(--primary);"></i>
+            <input type="text" id="cmd-input" placeholder="Type a command or search actions..." oninput="filterCommandPalette(this.value)" style="width: 100%; background: transparent; border: none; outline: none; color: var(--text-main); font-size: 0.95rem;">
+        </div>
+        <div class="cmd-results-list" id="cmd-results" style="max-height: 300px; overflow-y: auto; padding: 10px;">
+            <div class="cmd-item" onclick="executeCommand('new-memory')" style="padding: 12px 16px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 0.88rem;"><i class="fa-solid fa-plus" style="color: var(--primary);"></i> New Memory Entry</div>
+            <div class="cmd-item" onclick="executeCommand('toggle-galaxy')" style="padding: 12px 16px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 0.88rem;"><i class="fa-solid fa-network-wired" style="color: var(--primary);"></i> Open Constellation Map</div>
+            <div class="cmd-item" onclick="executeCommand('export-backup')" style="padding: 12px 16px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 0.88rem;"><i class="fa-solid fa-file-arrow-down" style="color: var(--primary);"></i> Export Offline Backup (JSON)</div>
+            <div class="cmd-item" onclick="executeCommand('theme-sunset')" style="padding: 12px 16px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 0.88rem;"><i class="fa-solid fa-palette" style="color: var(--primary);"></i> Switch to Sunset Theme</div>
+            <div class="cmd-item" onclick="executeCommand('theme-dark')" style="padding: 12px 16px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: var(--text-main); font-size: 0.88rem;"><i class="fa-solid fa-moon" style="color: var(--primary);"></i> Switch to Dark Theme</div>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================================================
+     REVISION HISTORY MODAL (Git-style Diff Viewer)
+     ========================================================================== -->
+<div id="revision-modal" class="modal-overlay hidden modal-blur-backdrop" onclick="closeRevisionModal()" style="display: none; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 999999;">
+    <div class="modal-card animate-scale-up" onclick="event.stopPropagation()" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 28px; width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; box-shadow: 0 25px 50px var(--shadow-color);">
+        <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);"><i class="fa-solid fa-code-commit"></i> Revision History (Git Diff)</h3>
+            <button type="button" class="modal-close-generic" onclick="closeRevisionModal()" style="background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</button>
+        </div>
+        <div class="modal-body" id="revision-diff-container" style="font-family: monospace; font-size: 0.85rem; line-height: 1.6;"></div>
+    </div>
+</div>
+
+<!-- ==========================================================================
+     MODALS REQUIRED BY APP.JS
+     ========================================================================== -->
+
+<!-- Detailed Monologue Entry Modal Overlay -->
+<div id="entryDetailModalOverlay" class="modal-overlay hidden modal-blur-backdrop" onclick="handleOutsideClick(event)" style="display: none; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 999999;">
+    <div class="modal-card animate-scale-up" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 28px; width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; box-shadow: 0 25px 50px var(--shadow-color); box-sizing: border-box; position: relative;">
+        
+        <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+            <div id="modalEntryTag" style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; background: var(--primary-light); color: var(--primary); padding: 4px 12px; border-radius: 30px; border: 1px solid var(--border-color);">Timeline Narrative</div>
+            <button type="button" class="modal-close-generic modal-close" onclick="closeEntryModal()" style="background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem;">×</button>
+        </div>
+
+        <h3 id="modalEntryTitle" style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px; letter-spacing: -0.4px;"></h3>
+        <div id="modalEntryDate" style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 20px; font-family: monospace;"></div>
+        
+        <div class="modal-body-scroll" style="margin-top: 10px;">
+            <p id="modalEntryBody" style="font-size: 1rem; line-height: 1.7; color: var(--text-main); opacity: 0.92; white-space: pre-wrap; text-align: justify; margin: 0;"></p>
+        </div>
+
+    </div>
+</div>
+
+<!-- Logout Confirmation Modal Overlay -->
+<div id="logout-modal-overlay" class="dialog-overlay-wrapper modal-blur-backdrop" style="display: none; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 999999; opacity: 0; transition: opacity 0.2s ease;">
+    <div class="dialog-card-surface dialog-card-centered animate-scale-up" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 28px; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 25px 50px var(--shadow-color); box-sizing: border-box; transform: scale(0.92); transition: transform 0.2s ease;">
+        <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(239, 68, 68, 0.1); color: #ef4444; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 1.3rem;">
+            <i class="fas fa-sign-out-alt"></i>
+        </div>
+        <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">Terminate Session?</h3>
+        <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">You will need to re-authenticate with your PIN to access your workspace timeline again.</p>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <button type="button" onclick="closeLogoutModal()" style="flex: 1; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border-color); background: transparent; color: var(--text-main); font-weight: 600; font-size: 0.82rem; cursor: pointer;">Cancel</button>
+            <button type="button" onclick="executeLogout()" style="flex: 1; padding: 10px 16px; border-radius: 10px; border: none; background: #ef4444; color: #ffffff; font-weight: 700; font-size: 0.82rem; cursor: pointer;">Logout</button>
+        </div>
+    </div>
+</div>
+
+<!-- Visitor Access Denied Modal Overlay -->
+<div id="access-denied-modal-overlay" class="dialog-overlay-wrapper modal-blur-backdrop" style="display: none; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 999999; opacity: 0; transition: opacity 0.2s ease;">
+    <div class="dialog-card-surface dialog-card-centered animate-scale-up" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 28px; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 25px 50px var(--shadow-color); box-sizing: border-box; transform: scale(0.92); transition: transform 0.2s ease;">
+        <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(245, 158, 11, 0.1); color: #f59e0b; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 1.3rem;">
+            <i class="fas fa-lock"></i>
+        </div>
+        <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">Restricted Action</h3>
+        <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">Visitor profiles have read-only access. Creating, editing, or deleting entries requires Master credentials.</p>
+        <button type="button" onclick="closeAccessDeniedModal()" style="width: 100%; padding: 10px 16px; border-radius: 10px; border: none; background: var(--primary); color: #ffffff; font-weight: 700; font-size: 0.82rem; cursor: pointer;">Acknowledge</button>
+    </div>
+</div>
+
+<script src="sw.js"></script>
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script src="app.js" defer></script>
+
+</body>
+</html>
